@@ -5,18 +5,32 @@
 */
 
 // State hook u import edin
-import React from 'react';
+import React, { useState } from "react";
+import AramaÇubuğu from "./bileşenler/AramaÇubuğu/AramaÇubuğu";
+import Gönderiler from "./bileşenler/Gönderiler/Gönderiler";
 
 // Gönderiler (çoğul!) ve AramaÇubuğu bileşenlerini import edin, çünkü bunlar App bileşeni içinde kullanılacak
 // sahteVeri'yi import edin
-import './App.css';
+import data from "./sahte-veri"; // we can use import sahteVeri from "./sahte-veri"
+
+import "./App.css";
 
 const App = () => {
   // Gönderi nesneleri dizisini tutmak için "gonderiler" adlı bir state oluşturun, **sahteVeri'yi yükleyin**.
   // Artık sahteVeri'ye ihtiyacınız olmayacak.
   // Arama çubuğunun çalışması için , arama kriterini tutacak başka bir state'e ihtiyacımız olacak.
-	
-  const gonderiyiBegen = gonderiID => {
+  const [gonderiler, setGonderiler] = useState(data);
+  const [search, setSearch] = useState("");
+  // console.log("hi", data);
+
+  const arama = (postUsername) => {
+    let newDataArray = [];
+
+    gonderiler.filter((el) => el.username === postUsername);
+    console.log("hi");
+  };
+
+  const gonderiyiBegen = (gonderiID) => {
     /*
       Bu fonksiyon, belirli bir id ile gönderinin beğeni sayısını bir artırma amacına hizmet eder.
 
@@ -28,11 +42,30 @@ const App = () => {
         - gönderinin idsi "gonderiID" ile eşleşirse, istenen değerlerle yeni bir gönderi nesnesi döndürün.
         - aksi takdirde, sadece gönderi nesnesini değiştirmeden döndürün.
      */
+    // posts.map(el => )
+    let newDataArray = [];
+    // console.log("data", gonderiler);
+    // console.log(gonderiler.map((el) => (el.id = el.id + 1)));
+    // console.log(gonderiID);
+    // console.log(gonderiler);
+    // console.log("data", data);
+
+    gonderiler.map((el) => {
+      if (el.id === gonderiID) {
+        el.likes++;
+      }
+
+      newDataArray.push(el);
+    });
+
+    setGonderiler(newDataArray);
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       {/* AramaÇubuğu ve Gönderiler'i render etmesi için buraya ekleyin */}
+      <AramaÇubuğu search={arama} />
+      <Gönderiler gonderiler={gonderiler} gonderiyiBegen={gonderiyiBegen} />
       {/* Her bileşenin hangi proplara ihtiyaç duyduğunu kontrol edin, eğer ihtiyaç varsa ekleyin! */}
     </div>
   );

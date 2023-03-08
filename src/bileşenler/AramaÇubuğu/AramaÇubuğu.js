@@ -1,11 +1,22 @@
 // MUÜ için bu dosyayı değiştirmenize gerek yok
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faHeart, faCircle, faCompass } from '@fortawesome/free-regular-svg-icons';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faHeart,
+  faCircle,
+  faCompass,
+} from "@fortawesome/free-regular-svg-icons";
 import "./AramaÇubuğu.css";
 
 const AramaÇubuğu = (props) => {
+  const { search } = props;
+  // const [search, setSearch] = useState("");
+
+  // const searchHandler = (e) => {
+  //   setSearch(e.target.value);
+  // };
+
   return (
     <div className="search-bar-wrapper">
       <div className="social">
@@ -14,6 +25,8 @@ const AramaÇubuğu = (props) => {
       <form className="search-form">
         <input
           type="text"
+          value={search}
+          //onChange={searchHandler}
           placeholder="Arama"
         />
       </form>
